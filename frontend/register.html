@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <img src="images/logo.png" class="header-logo">
+  <nav><a href="index.html">Back to Login</a></nav>
+</header>
+
+<div class="content">
+  <h2>Register New User</h2>
+
+  <form id="registerForm">
+    <select id="role" required>
+      <option value="">Select Role</option>
+      <option value="student">Student</option>
+      <option value="faculty">Faculty</option>
+    </select>
+
+    <select id="branch" style="display:none;">
+      <option value="">Select Branch</option>
+      <option value="CSE">CSE</option>
+      <option value="ECE">ECE</option>
+      <option value="MECH">MECH</option>
+      <option value="EEC">EEC</option>
+    </select>
+
+    <input type="number" id="semester" placeholder="Semester" style="display:none;">
+
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+
+    <button type="submit">Register</button>
+  </form>
+</div>
+
+
+<script>
+// Show/Hide based on role
+document.getElementById("role").addEventListener("change", () => {
+  const role = document.getElementById("role").value;
+
+  document.getElementById("branch").style.display =
+      (role === "student" || role === "faculty") ? "block" : "none";
+
+  document.getElementById("semester").style.display =
+      role === "student" ? "block" : "none";
+});
+
+// Submit form
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const user = {
+    username: document.getElementById("username").value,
+    password: document.getElementById("password").value,
+    role: document.getElementById("role").value,
+    branch: document.getElementById("branch").value || null,
+    semester: document.getElementById("semester").value || null
+  };
+
+  const res = await fetch("http://localhost:5000/api/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  });
+
+  const result = await res.json();
+  alert(result.msg);
+
+  if (result.success) {
+    window.location.href = "index.html";
+  }
+});
+</script>
+
+</body>
+</html>

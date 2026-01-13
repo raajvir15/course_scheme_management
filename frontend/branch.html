@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Branch & Semester</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="./images/logo.png" alt="Thapar Logo" class="header-logo">
+    <nav>
+      <a href="index.html">Logout</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <h2>Select Branch & Semester</h2>
+    <form id="branchForm">
+      <select id="branch" required>
+  <option value="">Select Branch</option>
+  <option value="CSE">Computer Engineering</option>
+  <option value="ECE">Electronics Engineering</option>
+  <option value="MECH">Mechanical Engineering</option>
+  <option value="EEC">Electrical and Computer Engineering</option>
+</select>
+
+
+      <select id="semester" required>
+        <option value="">Select Semester</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+        <option value="7">Semester 7</option>
+        <option value="8">Semester 8</option>
+      </select>
+
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("branchForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const branch = document.getElementById("branch").value;
+      const semester = document.getElementById("semester").value;
+      localStorage.setItem("branch", branch);
+      localStorage.setItem("semester", semester);
+      window.location.href = "scheme.html";
+    });
+  </script>
+</body>
+</html>
